@@ -5,7 +5,7 @@ import imutils
 
 CAPTCHA_IMAGE_FOLDER = 'CaptchaImages'
 OUTPUT_FOLDER = "ExtractedLetter"
-MIN = 30
+MIN = 100
 
 captcha_image_files = glob.glob(os.path.join(CAPTCHA_IMAGE_FOLDER, "*"))
 counts = {}
@@ -55,8 +55,14 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
         # Extract the letter from the original image with a 2-pixel margin around the edge
         letter_image = gray[y:y + h, x:x + w]
 
+        print(letter_text)
         # Get the folder to save the image in
-        save_path = os.path.join(OUTPUT_FOLDER, letter_text)
+        if letter_text.isupper():
+            save_path = os.path.join(OUTPUT_FOLDER, "uppercase", letter_text)
+        elif letter_text.islower():
+            save_path = os.path.join(OUTPUT_FOLDER, "lowercase", letter_text)
+        else:
+            save_path = os.path.join(OUTPUT_FOLDER, "numbers", letter_text)
 
         # if the output directory does not exist, create it
         if not os.path.exists(save_path):
@@ -69,3 +75,5 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
 
         # increment the count for the current key
         counts[letter_text] = count + 1
+
+print(counts)

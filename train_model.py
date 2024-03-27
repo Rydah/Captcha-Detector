@@ -53,7 +53,7 @@ model.add(tf.keras.layers.Flatten())
 model.add(tf.keras.layers.Dense(500, activation="relu"))
 
 # output of the 36 numbers and letters possible
-model.add(tf.keras.layers.Dense(36, activation="softmax"))
+model.add(tf.keras.layers.Dense(62, activation="softmax"))
 
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=['accuracy'])
 
